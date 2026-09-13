@@ -18,6 +18,12 @@ export const metadata: Metadata = {
 		template: '%s · Canvas',
 	},
 	description: 'JSON-driven presentation engine built on React Flow.',
+	applicationName: 'Canvas',
+	authors: [{ name: 'salamituns' }],
+	icons: {
+		icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+		apple: [{ url: '/apple-icon', type: 'image/png' }],
+	},
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
