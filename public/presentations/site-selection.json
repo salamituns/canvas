@@ -1,0 +1,111 @@
+{
+	"title": "Site Selection",
+	"slug": "site-selection",
+	"steps": 5,
+	"initialNodes": [
+		{
+			"id": "brief",
+			"type": "TextCard",
+			"position": { "x": 40, "y": 180 },
+			"data": {
+				"step": 1,
+				"title": "The brief",
+				"body": "Pick one location from a candidate set. Constraints arrive as JSON; the graph only reveals what the current step needs."
+			}
+		},
+		{
+			"id": "criteria",
+			"type": "TextCard",
+			"position": { "x": 380, "y": 40 },
+			"data": {
+				"step": 2,
+				"title": "Score the site",
+				"body": "Latency, power cost, flood risk, and talent pool. Weights live in config so the same engine can score warehouses or data centers."
+			}
+		},
+		{
+			"id": "scoring",
+			"type": "CodeBlock",
+			"position": { "x": 380, "y": 280 },
+			"data": {
+				"step": 2,
+				"title": "Weighted score",
+				"language": "ts",
+				"code": "function score(site, weights) {\n  return weights.reduce(\n    (sum, w) => sum + site[w.key] * w.value,\n    0,\n  )\n}"
+			}
+		},
+		{
+			"id": "map",
+			"type": "ImageCard",
+			"position": { "x": 760, "y": 80 },
+			"data": {
+				"step": 3,
+				"title": "Candidate map",
+				"src": "/globe.svg",
+				"alt": "Globe icon standing in for a site map",
+				"caption": "Three metros survive the first cut."
+			}
+		},
+		{
+			"id": "shortlist",
+			"type": "TextCard",
+			"position": { "x": 1100, "y": 160 },
+			"data": {
+				"step": 4,
+				"title": "Shortlist",
+				"body": "Austin, Columbus, and Montreal. Same node type as the brief — the JSON type string switched nothing in code, only the payload."
+			}
+		},
+		{
+			"id": "decision",
+			"type": "TextCard",
+			"position": { "x": 1440, "y": 160 },
+			"data": {
+				"step": 5,
+				"title": "Decision",
+				"body": "Columbus wins on power + latency. Reset the deck; the source nodes never changed, only the filter."
+			}
+		}
+	],
+	"initialEdges": [
+		{
+			"id": "e-brief-criteria",
+			"source": "brief",
+			"target": "criteria",
+			"step": 2
+		},
+		{
+			"id": "e-brief-scoring",
+			"source": "brief",
+			"target": "scoring",
+			"step": 2
+		},
+		{
+			"id": "e-criteria-map",
+			"source": "criteria",
+			"target": "map",
+			"step": 3,
+			"animated": true
+		},
+		{
+			"id": "e-scoring-map",
+			"source": "scoring",
+			"target": "map",
+			"step": 3
+		},
+		{
+			"id": "e-map-shortlist",
+			"source": "map",
+			"target": "shortlist",
+			"step": 4,
+			"label": "filter"
+		},
+		{
+			"id": "e-shortlist-decision",
+			"source": "shortlist",
+			"target": "decision",
+			"step": 5,
+			"label": "choose"
+		}
+	]
+}

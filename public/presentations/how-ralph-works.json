@@ -1,0 +1,89 @@
+{
+	"title": "How Ralph Works with Amp",
+	"slug": "how-ralph-works",
+	"steps": 7,
+	"initialNodes": [
+		{
+			"id": "prd",
+			"type": "TextCard",
+			"position": { "x": 160, "y": 24 },
+			"data": {
+				"step": 1,
+				"tone": "sky",
+				"title": "You write a PRD",
+				"body": "Define what you want to build"
+			}
+		},
+		{
+			"id": "convert",
+			"type": "TextCard",
+			"position": { "x": 160, "y": 160 },
+			"data": {
+				"step": 2,
+				"tone": "sky",
+				"title": "Convert to prd.json",
+				"body": "Break into small user stories"
+			}
+		},
+		{
+			"id": "ralph",
+			"type": "TextCard",
+			"position": { "x": 160, "y": 296 },
+			"data": {
+				"step": 3,
+				"tone": "sky",
+				"title": "Run ralph.sh",
+				"body": "Starts the autonomous loop"
+			}
+		},
+		{
+			"id": "story",
+			"type": "CodeBlock",
+			"position": { "x": 520, "y": 120 },
+			"data": {
+				"step": 5,
+				"code": "{\n  \"id\": \"US-001\",\n  \"title\": \"Add priority field to database\",\n  \"acceptanceCriteria\": [\n    \"Add priority column to tasks table\",\n    \"Generate and run migration\",\n    \"Typecheck passes\"\n  ],\n  \"passes\": false\n}"
+			}
+		},
+		{
+			"id": "amp",
+			"type": "TextCard",
+			"position": { "x": 160, "y": 432 },
+			"data": {
+				"step": 4,
+				"tone": "slate",
+				"title": "Amp picks a story",
+				"body": "Finds next passes: false"
+			}
+		},
+		{
+			"id": "implements",
+			"type": "TextCard",
+			"position": { "x": 560, "y": 360 },
+			"data": {
+				"step": 6,
+				"tone": "slate",
+				"title": "Implements it",
+				"body": "Writes code, runs tests"
+			}
+		},
+		{
+			"id": "commits",
+			"type": "TextCard",
+			"position": { "x": 920, "y": 432 },
+			"data": {
+				"step": 7,
+				"tone": "slate",
+				"title": "Commits changes",
+				"body": "If tests pass"
+			}
+		}
+	],
+	"initialEdges": [
+		{ "id": "e-prd-convert", "source": "prd", "target": "convert", "step": 2 },
+		{ "id": "e-convert-ralph", "source": "convert", "target": "ralph", "step": 3 },
+		{ "id": "e-ralph-amp", "source": "ralph", "target": "amp", "step": 4 },
+		{ "id": "e-amp-implements", "source": "amp", "target": "implements", "step": 6 },
+		{ "id": "e-implements-commits", "source": "implements", "target": "commits", "step": 7 }
+	]
+}
