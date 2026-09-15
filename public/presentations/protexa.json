@@ -1,0 +1,138 @@
+{
+	"title": "How Protexa Works",
+	"slug": "protexa",
+	"steps": 10,
+	"initialNodes": [
+		{
+			"id": "world",
+			"type": "TextCard",
+			"position": { "x": 80, "y": 24 },
+			"data": {
+				"step": 1,
+				"tone": "sky",
+				"title": "The visit ended. Compliance didn't.",
+				"body": "Home health still owes HIPAA evidence, an SRA, and OASIS the nurse cannot finish in the driveway."
+			}
+		},
+		{
+			"id": "constraint",
+			"type": "TextCard",
+			"position": { "x": 80, "y": 176 },
+			"data": {
+				"step": 2,
+				"tone": "sky",
+				"title": "Scribes stop at the note",
+				"body": "Ambient tools write clinical text and walk away. The audit pack is still a folder and a consultant."
+			}
+		},
+		{
+			"id": "claim",
+			"type": "TextCard",
+			"position": { "x": 80, "y": 328 },
+			"data": {
+				"step": 3,
+				"tone": "sky",
+				"title": "Two spines, one system",
+				"body": "Compliance OS holds the program. Ambient captures the visit. They meet in the evidence spine — not two products taped together."
+			}
+		},
+		{
+			"id": "evidence",
+			"type": "TextCard",
+			"position": { "x": 80, "y": 500 },
+			"data": {
+				"step": 4,
+				"tone": "sky",
+				"title": "Evidence lands in one place",
+				"body": "Upload or scheduled Drive / OneDrive / Dropbox sync. Tag, classify, map to controls. Audit log is automatic."
+			}
+		},
+		{
+			"id": "program",
+			"type": "TextCard",
+			"position": { "x": 80, "y": 652 },
+			"data": {
+				"step": 5,
+				"tone": "sky",
+				"title": "SRA, policies, tasks",
+				"body": "Run the risk assessment. Draft and approve policies. Gaps become tasks. AI may suggest; a human approves."
+			}
+		},
+		{
+			"id": "audit-pack",
+			"type": "TextCard",
+			"position": { "x": 80, "y": 804 },
+			"data": {
+				"step": 6,
+				"tone": "slate",
+				"title": "One audit pack",
+				"body": "ZIP for the auditor: summary PDF plus a manifest of evidence and policies. Not a week of screenshots."
+			}
+		},
+		{
+			"id": "consent-code",
+			"type": "CodeBlock",
+			"position": { "x": 480, "y": 40 },
+			"data": {
+				"step": 7,
+				"code": "if (twoParty(visit.state)) {\n  requirePatientSignature()\n} else {\n  requireVerbalDisclosure()\n}\nalways.discloseAiProcessing()\nblockUntilConsentOnFile()"
+			}
+		},
+		{
+			"id": "consent",
+			"type": "TextCard",
+			"position": { "x": 480, "y": 280 },
+			"data": {
+				"step": 7,
+				"tone": "sky",
+				"title": "Consent before the recorder",
+				"body": "Visit state decides one-party vs two-party. No consent record, no audio. Patient can withdraw; capture stops."
+			}
+		},
+		{
+			"id": "capture",
+			"type": "TextCard",
+			"position": { "x": 480, "y": 452 },
+			"data": {
+				"step": 8,
+				"tone": "sky",
+				"title": "Record, encrypt, transcribe",
+				"body": "Audio is encrypted on device before upload. ASR + diarization. This is capture, not the medical record yet."
+			}
+		},
+		{
+			"id": "attest",
+			"type": "TextCard",
+			"position": { "x": 480, "y": 624 },
+			"data": {
+				"step": 9,
+				"tone": "slate",
+				"title": "Clinician attests OASIS drafts",
+				"body": "AI maps transcript to OASIS fields. A licensed clinician reviews, edits, and attests. Nothing enters the record unsigned."
+			}
+		},
+		{
+			"id": "join",
+			"type": "TextCard",
+			"position": { "x": 280, "y": 976 },
+			"data": {
+				"step": 10,
+				"tone": "slate",
+				"title": "The visit becomes evidence",
+				"body": "The attested artifact flows into the same compliance spine as policies and SRAs. Ambient is not a sidecar scribe."
+			}
+		}
+	],
+	"initialEdges": [
+		{ "id": "e-world-constraint", "source": "world", "target": "constraint", "step": 2 },
+		{ "id": "e-constraint-claim", "source": "constraint", "target": "claim", "step": 3 },
+		{ "id": "e-claim-evidence", "source": "claim", "target": "evidence", "step": 4 },
+		{ "id": "e-evidence-program", "source": "evidence", "target": "program", "step": 5 },
+		{ "id": "e-program-audit", "source": "program", "target": "audit-pack", "step": 6 },
+		{ "id": "e-claim-consent", "source": "claim", "target": "consent", "step": 7 },
+		{ "id": "e-consent-capture", "source": "consent", "target": "capture", "step": 8 },
+		{ "id": "e-capture-attest", "source": "capture", "target": "attest", "step": 9 },
+		{ "id": "e-attest-join", "source": "attest", "target": "join", "step": 10 },
+		{ "id": "e-audit-join", "source": "audit-pack", "target": "join", "step": 10 }
+	]
+}
